@@ -1,0 +1,10 @@
+server:
+  port: 5003
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  quartz:
+    overwrite-existing-jobs: true
+sensor:
+  number_of_retries: 2
