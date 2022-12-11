@@ -2,7 +2,7 @@ package com.banque.irrigationsystem.modules.slot.service;
 
 import com.banque.irrigationsystem.modules.slot.dto.SlotConfiguration;
 import com.banque.irrigationsystem.modules.slot.entity.IrrigationSlot;
-import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
+import com.banque.irrigationsystem.shared.dto.PaginationRequest;
 
 import java.util.List;
 import java.util.Optional;

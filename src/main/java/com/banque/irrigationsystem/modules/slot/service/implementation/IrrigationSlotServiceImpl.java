@@ -8,7 +8,7 @@ import com.banque.irrigationsystem.modules.slot.entity.IrrigationSlot;
 import com.banque.irrigationsystem.modules.slot.entity.dao.IrrigationSlotRepository;
 import com.banque.irrigationsystem.modules.slot.exceptions.IrrigationSlotExceptions;
 import com.banque.irrigationsystem.modules.slot.service.IrrigationSlotService;
-import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
+import com.banque.irrigationsystem.shared.dto.PaginationRequest;
 import com.banque.irrigationsystem.modules.land.service.LandService;
 import com.banque.irrigationsystem.shared.integrations.impl.SensorActivityImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -95,7 +95,7 @@ public class IrrigationSlotServiceImpl implements IrrigationSlotService {
         irrigationSlot = slotRepository.save(irrigationSlot);
         log.info("created slot for land {}",landReference);
 
-        log.info("pushing slot to scheduler ID: {}",irrigationSlot.getJobId());
+        log.info("pushing slot to scheduler ID: {} to run at {}",irrigationSlot.getJobId(),irrigationSlot.getTimeToLaunch());
         Map<String,String> dataMap = new HashMap<>();
         dataMap.put("job_ref",irrigationSlot.getJobId());
 
@@ -115,14 +115,22 @@ public class IrrigationSlotServiceImpl implements IrrigationSlotService {
     @Override
     public List<IrrigationSlot> fetchSlots(PaginationRequest paginationRequest) {
 
-        return slotRepository.findAll(Pageable.ofSize(paginationRequest.getPageSize()))
+        Pageable pageable = Pageable
+                .ofSize(paginationRequest.getPageSize())
+                .withPage(paginationRequest.getPageNumber());
+
+        return slotRepository.findAll(pageable)
                 .getContent();
     }
 
     @Override
     public void markSlotAsUtilized(String jobId) {
+        LocalDateTime currentDate = LocalDateTime.now();
+
         IrrigationSlot irrigationSlot = slotRepository.findByJobId(jobId);
         irrigationSlot.setStatus(IrrigationStatus.COMPLETED);
+        irrigationSlot.setLastUpdatedOn(currentDate);
+        irrigationSlot.setTimeEnded(currentDate);
 
         slotRepository.save(irrigationSlot);
         log.info("Slot status updated");

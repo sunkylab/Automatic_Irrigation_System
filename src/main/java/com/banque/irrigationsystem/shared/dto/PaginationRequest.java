@@ -1,4 +1,4 @@
-package com.banque.irrigationsystem.modules.land.dto;
+package com.banque.irrigationsystem.shared.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -13,5 +13,5 @@ public class PaginationRequest {
 
     @Min(value = 1, message = "pageSize cannot be less than 1")
     private int pageSize;
-    private String pageToken;
+    private int pageNumber;
 }

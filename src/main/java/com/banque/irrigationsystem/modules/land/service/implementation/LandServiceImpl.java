@@ -3,7 +3,7 @@ package com.banque.irrigationsystem.modules.land.service.implementation;
 import com.banque.irrigationsystem.core.exceptions.AppBaseException;
 import com.banque.irrigationsystem.modules.land.dto.AddLandRequest;
 import com.banque.irrigationsystem.modules.land.dto.LandDetail;
-import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
+import com.banque.irrigationsystem.shared.dto.PaginationRequest;
 import com.banque.irrigationsystem.modules.land.dto.UpdateLandRequest;
 import com.banque.irrigationsystem.modules.land.entity.LandEntity;
 import com.banque.irrigationsystem.modules.land.entity.dao.LandRepository;
@@ -72,7 +72,9 @@ public class LandServiceImpl implements LandService {
     @Override
     public List<LandDetail> fetchAllLands(PaginationRequest paginationRequest) {
 
-        Pageable pageable = Pageable.ofSize(paginationRequest.getPageSize());
+        Pageable pageable = Pageable.
+                ofSize(paginationRequest.getPageSize())
+                .withPage(paginationRequest.getPageNumber());
 
         return landRepository.findAll(pageable).stream()
                 .map(landEntity -> convertToLandDTO(landEntity))

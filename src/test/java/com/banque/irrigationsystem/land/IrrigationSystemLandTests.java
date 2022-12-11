@@ -4,7 +4,7 @@ import com.banque.irrigationsystem.core.exceptions.AppBaseException;
 import com.banque.irrigationsystem.modules.land.dto.AddLandRequest;
 import com.banque.irrigationsystem.modules.land.dto.LandDetail;
 import com.banque.irrigationsystem.modules.land.dto.LandType;
-import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
+import com.banque.irrigationsystem.shared.dto.PaginationRequest;
 import com.banque.irrigationsystem.modules.land.dto.UpdateLandRequest;
 import com.banque.irrigationsystem.modules.land.entity.dao.LandRepository;
 import com.banque.irrigationsystem.modules.land.service.LandService;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 

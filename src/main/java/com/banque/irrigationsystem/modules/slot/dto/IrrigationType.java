@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 public enum IrrigationType {
 
-    SURFACE_IRRIGATION("Surface Irrigation",50l,120000l),
-    SPRINKLER_IRRIGATION("Sprinkler Irrigation",20l,60000l),
-    DRIP_IRRIGATION("Drip Irrigation",10l,60000l);
+    SURFACE_IRRIGATION("Surface Irrigation",50l,120l),
+    SPRINKLER_IRRIGATION("Sprinkler Irrigation",20l,60l),
+    DRIP_IRRIGATION("Drip Irrigation",10l,60l);
 
 
     public static IrrigationType predictIrrigationSlotData(LandType landType){

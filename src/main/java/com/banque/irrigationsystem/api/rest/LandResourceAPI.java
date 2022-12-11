@@ -3,7 +3,7 @@ package com.banque.irrigationsystem.api.rest;
 import com.banque.irrigationsystem.api.shared.ApiResponse;
 import com.banque.irrigationsystem.modules.land.dto.AddLandRequest;
 import com.banque.irrigationsystem.modules.land.dto.LandDetail;
-import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
+import com.banque.irrigationsystem.shared.dto.PaginationRequest;
 import com.banque.irrigationsystem.modules.land.dto.UpdateLandRequest;
 import com.banque.irrigationsystem.modules.land.service.LandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,11 +69,11 @@ public class LandResourceAPI {
 
     @GetMapping("/")
     public ResponseEntity<ApiResponse> fetchLands(@RequestParam("page_size") int pageSize,
-                                                  @RequestParam(name="page_number",required = false) String nextPageToken){
+                                                  @RequestParam(name="page_number",required = false) int pageNumber){
 
         var records = landService.fetchAllLands(PaginationRequest.builder()
                 .pageSize(pageSize)
-                .pageToken(nextPageToken)
+                .pageNumber(pageNumber)
                 .build());
 
         return ResponseEntity.ok(ApiResponse.builder()

@@ -3,7 +3,7 @@ package com.banque.irrigationsystem.api.rest;
 import com.banque.irrigationsystem.api.shared.ApiResponse;
 import com.banque.irrigationsystem.modules.slot.dto.SlotConfiguration;
 import com.banque.irrigationsystem.modules.slot.service.IrrigationSlotService;
-import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
+import com.banque.irrigationsystem.shared.dto.PaginationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,11 +52,11 @@ public class SlotResourceAPI {
 
     @GetMapping("/")
     public ResponseEntity<ApiResponse> fetchSlots(@RequestParam("page_size") int pageSize,
-                                                  @RequestParam(name="next_page_token",required = false) String nextPageToken){
+                                                  @RequestParam(name="page_number") int pageNumber){
 
         var records = irrigationSlotService.fetchSlots(PaginationRequest.builder()
                 .pageSize(pageSize)
-                .pageToken(nextPageToken)
+                .pageNumber(pageNumber)
                 .build());
 
         return ResponseEntity.ok(ApiResponse.builder()

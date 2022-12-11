@@ -2,7 +2,7 @@ package com.banque.irrigationsystem.modules.land.service;
 
 import com.banque.irrigationsystem.modules.land.dto.AddLandRequest;
 import com.banque.irrigationsystem.modules.land.dto.LandDetail;
-import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
+import com.banque.irrigationsystem.shared.dto.PaginationRequest;
 import com.banque.irrigationsystem.modules.land.dto.UpdateLandRequest;
 
 import java.util.List;

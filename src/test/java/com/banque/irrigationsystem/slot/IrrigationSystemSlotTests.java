@@ -4,7 +4,7 @@ package com.banque.irrigationsystem.slot;
 import com.banque.irrigationsystem.modules.land.dto.AddLandRequest;
 import com.banque.irrigationsystem.modules.land.dto.LandDetail;
 import com.banque.irrigationsystem.modules.land.dto.LandType;
-import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
+import com.banque.irrigationsystem.shared.dto.PaginationRequest;
 import com.banque.irrigationsystem.modules.land.entity.dao.LandRepository;
 import com.banque.irrigationsystem.modules.land.service.LandService;
 import com.banque.irrigationsystem.modules.slot.dto.SlotConfiguration;
@@ -63,6 +63,7 @@ class IrrigationSystemSlotTests {
 		LandDetail detail = landService.addLand(request);
 		List<IrrigationSlot> slots = slotService.fetchSlots(PaginationRequest.builder()
 				.pageSize(10)
+				.pageNumber(10)
 				.build());
 
 		//then
