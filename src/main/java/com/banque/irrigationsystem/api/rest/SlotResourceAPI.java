@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/irrigation/v1/slots")
-public class IrrigationResourceAPI {
+public class SlotResourceAPI {
 
     private IrrigationSlotService irrigationSlotService;
 
     @Autowired
-    public IrrigationResourceAPI(IrrigationSlotService irrigationSlotService) {
+    public SlotResourceAPI(IrrigationSlotService irrigationSlotService) {
         this.irrigationSlotService = irrigationSlotService;
     }
 

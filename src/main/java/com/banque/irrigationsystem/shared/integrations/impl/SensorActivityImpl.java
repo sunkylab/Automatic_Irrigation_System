@@ -1,18 +1,19 @@
-package com.banque.irrigationsystem.shared.schedulers;
+package com.banque.irrigationsystem.shared.integrations.impl;
 
 import com.banque.irrigationsystem.modules.slot.service.IrrigationSlotService;
+import com.banque.irrigationsystem.shared.integrations.SensorActivity;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-public class Sensor implements Job {
+public class SensorActivityImpl implements Job, SensorActivity {
 
     private IrrigationSlotService slotService;
 
     @Autowired
-    public Sensor(IrrigationSlotService slotService) {
+    public SensorActivityImpl(IrrigationSlotService slotService) {
         this.slotService = slotService;
     }
 
@@ -35,4 +36,9 @@ public class Sensor implements Job {
         slotService.markSlotAsUtilized(jobRef);
     }
 
+
+    @Override
+    public boolean isSensorActive() {
+        return true;
+    }
 }

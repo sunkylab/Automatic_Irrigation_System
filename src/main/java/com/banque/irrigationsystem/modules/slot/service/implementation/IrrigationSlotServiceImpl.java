@@ -6,11 +6,11 @@ import com.banque.irrigationsystem.modules.slot.dto.IrrigationType;
 import com.banque.irrigationsystem.modules.slot.dto.SlotConfiguration;
 import com.banque.irrigationsystem.modules.slot.entity.IrrigationSlot;
 import com.banque.irrigationsystem.modules.slot.entity.dao.IrrigationSlotRepository;
-import com.banque.irrigationsystem.modules.slot.exceptions.IrrigationServiceException;
+import com.banque.irrigationsystem.modules.slot.exceptions.IrrigationSlotExceptions;
 import com.banque.irrigationsystem.modules.slot.service.IrrigationSlotService;
 import com.banque.irrigationsystem.modules.land.dto.PaginationRequest;
 import com.banque.irrigationsystem.modules.land.service.LandService;
-import com.banque.irrigationsystem.shared.schedulers.Sensor;
+import com.banque.irrigationsystem.shared.integrations.impl.SensorActivityImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -54,11 +54,11 @@ public class IrrigationSlotServiceImpl implements IrrigationSlotService {
     public void configureSlot(String landReference, SlotConfiguration slotConfiguration) {
 
         if(! landService.landExists(landReference)) {
-            throw new IrrigationServiceException("Land could not be found in irrigation channel");
+            throw new IrrigationSlotExceptions("Land could not be found in irrigation channel");
         }
 
         IrrigationSlot slot = slotRepository.findByStatusAndLandReference(IrrigationStatus.PENDING,landReference)
-                .orElseThrow(()-> new IrrigationServiceException("No Pending Records"));
+                .orElseThrow(()-> new IrrigationSlotExceptions("No Pending Records"));
 
         slot.setTimeToLaunch(slotConfiguration.timeToLaunch());
         slot.setAmountOfWaterInGallons(slotConfiguration.amountOfWaterInGallons());
@@ -140,7 +140,7 @@ public class IrrigationSlotServiceImpl implements IrrigationSlotService {
         }
 
         //Set Job ID
-        JobBuilder builder = JobBuilder.newJob(Sensor.class)
+        JobBuilder builder = JobBuilder.newJob(SensorActivityImpl.class)
                 .withIdentity(jobId,"slot_jobs");
 
         //Set Job Data

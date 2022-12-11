@@ -2,8 +2,9 @@ package com.banque.irrigationsystem.shared.integrations;
 
 public interface SensorActivity {
 
-    boolean canLandBeIrrigated();
-
-    boolean irrigateLand();
+    /**
+     * This method can be used to check if sensor is usable or reachable
+     * **/
+    boolean isSensorActive();
 
 }
